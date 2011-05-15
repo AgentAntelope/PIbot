@@ -13,5 +13,5 @@ def infunc(bot,text):
 		return '"'+args[0]+'" is not a PIbot command.'
 	return ""
 
-def outfunc(ostream):
+def outfunc(bot,ostream):
 	return None

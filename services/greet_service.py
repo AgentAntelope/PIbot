@@ -1,4 +1,5 @@
 import time
+import random
 from pibot_constants import *
 
 name="greeting"
@@ -10,25 +11,15 @@ newfag=[]
 
 #initialize oldfag and newfag
 def init(bot):
+	global oldfag,newfag
 	file=open(workingdir+"data/oldgreet.txt","r")
-	string=file.read()
-	oldfag=string.split('\n')
+	oldfag=file.read().split('\n')
 	file.close()
 	file=open(workingdir+"data/newgreet.txt","r")
-	string=file.read()
-	newfag=string.split('\n')
-	file.close()
+	newfag=file.read().split('\n')
 	del file
 	del string
-
-	file=open(workingdir+"data/oldgreet.txt","r")
-	string=file.read()
-	oldfag=string.split('\n')
-	file.close()
-	file=open(workingdir+"data/newgreet.txt","r")
-	string=file.read()
-	newfag=string.split('\n')
-	file.close()
+	random.srand()
 
 def format_greet(text,username):
 	text=text.replace("<user>",username).replace("<USER>",username.upper())
@@ -47,16 +38,19 @@ def format_greet(text,username):
 	return text
 
 def infunc(bot,text):
+	global oldfag,newfag
 	if text["Type"]=="Announcement":
 		#check if this is the string
-		if text["Msg"]=="has joined chat":
-			return format_greet(oldfag[randint(0,len(oldfag))])
-		elif text["Msg"]=="has joined the site":
-			return format_greet(newfag[randint(0,len(newfag))])
+		if text["Msg"]=="has joined the channel":
+			return format_greet(oldfag[random.randrange(0,len(oldfag))],text["User"])
+		elif text["Msg"]=="just joined the site":
+			return format_greet(newfag[random.randrange(0,len(newfag))],text["User"])
+		elif text["Msg"]=="has left the channel":
+			return ""
 		else:
 			return 'Error: Unexpected announcement "'+text["Msg"]+'" received.'
 	else:
 		return ""
 
-def outfunc(ostream):
+def outfunc(bot,ostream):
 	return None

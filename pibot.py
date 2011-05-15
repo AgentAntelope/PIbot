@@ -29,7 +29,7 @@ def main():
 	sys.path.append(workingdir+"modes/")
 	sys.path.append(workingdir+"services/")
 	password=open("/home/pimaster/password.txt","r")
-	pibot=bot("PIbot",password.read().replace('\n',''),"2.0.0","")
+	pibot=bot("PIbot",password.read().replace('\n',''),"2.0.0.1","")
 	loadmodules(pibot,workingdir+"commands/",workingdir+"modes/",workingdir+"services/")
 	#run the bot
 	while not pibot.dologout:

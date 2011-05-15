@@ -5,5 +5,5 @@ description="Make PIbot stop sending text to chat."
 version="1.0.0"
 level=user.mod
 
-def func(text):
+def func(bot,text):
 	return ""

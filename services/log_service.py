@@ -13,16 +13,13 @@ def init(bot):
 
 def isemote(text):
 	args=text.split(' ')
-	if args[0][0]=='/':
-		if args[0].lower()=="/me":
-			return True
+	if len(args)==0:
+		if args[0][0]=='/':
+			if args[0].lower()=="/me":
+				return True
 	return False
 
 def func(bot,text):
-	if text["Type"]=="Message":
-		print "<"+text["User"]+"> "+text["Msg"]+' '+text["Timestamp"]
-	else:
-		print "***"+text["User"]+' '+text["Msg"]+' '+text["Timestamp"]
 	file=open(www+"data/log.txt","a")
 	if text["Type"]=="Msg":
 		file.write('m')
@@ -39,11 +36,16 @@ def func(bot,text):
 	return ""
 
 def infunc(bot,text):
+	if text["Type"]=="Message":
+		print "<"+text["User"]+"> "+text["Msg"]+' '+text["Timestamp"]
+	else:
+		print "***"+text["User"]+' '+text["Msg"]+' '+text["Timestamp"]
 	return func(bot,text)
 
 def outfunc(bot,ostream):
-	text={"User":bot.name,"Msg":out,"Timestamp":time.strftime("%I:%M"),"Type":"Message"}
+	text={"User":bot.username,"Msg":"","Timestamp":time.strftime("%I:%M"),"Type":"Message"}
 	for out in ostream:
+		text["Msg"]=out
 		if isemote(out):
 			text["Type"]="Emote"
 		else:

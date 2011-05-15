@@ -29,6 +29,7 @@ def init(bot):
 		helphtml+="<p> &gt; "+s.name+" service v"+s.version+" - "+s.description
 	helphtml=helphtml[:-2]
 	helphtml+="</body>\n</html>"
+	print helphtml
 	html=open(www+"data/help.html","w")
 	html.write(helphtml)
 	html.close()

@@ -13,7 +13,6 @@ def combine(params):
 	return string[:-1]
 
 def func(bot,text,args):
-	print "!say args: ",args
 	if len(args)==0:
 		return "Proper usage: "+CK+name+' '+parameters
 	if args[0][0]=='/':

@@ -60,10 +60,6 @@ class service(module):
 			init(bot)
 		except:
 			pass
-	def run(self,bot,text,isout):
-		if self.disable:
-			return ""
-		return self.func(bot,text)
 
 class mode(module):
 	#default values
@@ -187,6 +183,8 @@ class bot:
 							if self.userlvl(text["User"])>=c.level:
 								output.extend(c.run(self,text,args[1:]).split("||"))
 								break
+							else:
+								output.append("Error: "+CK+c.name+" mode is a "+userlvlname(c.level)+"-only command.")
 				#modes
 				for o in output:
 					if o=="":
