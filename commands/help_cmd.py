@@ -4,7 +4,7 @@ name="help"
 parameters="[module]"
 description="Display the help information."
 level=user.basic
-version="1.0.1.1"
+version="1.0.1.2"
 
 def init(bot):
 	#dynamically create the help information
@@ -16,12 +16,9 @@ def init(bot):
 	<body>
 		<a href="http://jq.dyndns-free.com:3145/index.php">Homepage</a><br/>
 		<p>[] denotes an optional field<p>
-		<p>&lt;&gt; denotes an optional field<p>
+		<p>&lt;&gt; denotes an required field<p>
 		<p>All PIbot commands begin with """+CK+"""<p><br/>
 		<h2>Commands</h2>\n"""
-	print bot.modes
-	print bot.services
-	print bot.commands
 	for c in bot.commands:
 		helphtml+="<p> &gt; "+CK+c.name+' v'+c.version+' '+c.parameters.replace('<',"&lt;").replace('>',"&gt;")+" - "+c.description+'" '+userlvlname(c.level)+"-only</p>\n\t\t"
 	helphtml+="<h2>Modes</h2>\n\t\t"

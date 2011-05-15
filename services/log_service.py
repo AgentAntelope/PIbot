@@ -1,13 +1,14 @@
 import time
+import codecs
 from pibot_constants import *
 
 name="log"
 description="Records all conversation that goes on in chat."
-version="1.0.1.0"
+version="1.0.1.2"
 
 #init logging
 def init(bot):
-	file=open(www+"data/log.txt","a")
+	file=codecs.open(www+"data/log.txt","a","utf-8")
 	file.write('i\t\t\t'+time.strftime("%I:%M"))
 	file.close()
 
@@ -20,7 +21,7 @@ def isemote(text):
 	return False
 
 def func(bot,text):
-	file=open(www+"data/log.txt","a")
+	file=codecs.open(www+"data/log.txt","a","utf-8")
 	if text["Type"]=="Msg":
 		file.write('m')
 	elif text["Type"]=="Emote":
@@ -30,8 +31,9 @@ def func(bot,text):
 	else:
 		file.write('x')
 	file.write('\t')
-	file.write(text["User"]+'\t')
-	file.write(text["Msg"]+'\t')
+	file.write(unicode(text["User"]+u'\t'))
+	file.write(unicode(text["Msg"]+u'\t'))
+	#guaranteed to always be ascii-compatible
 	file.write(text["Timestamp"])
 	return ""
 

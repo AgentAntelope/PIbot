@@ -4,7 +4,7 @@ name="say"
 parameters="<text>"
 description="Make PIbot say text"
 level=user.basic
-version="1.0.1.0"
+version="1.0.1.1"
 
 def combine(params):
 	string=""
@@ -17,6 +17,6 @@ def func(bot,text,args):
 		return "Proper usage: "+CK+name+' '+parameters
 	if args[0][0]=='/':
 		if args[0].lower()!="/me":
-			if text["User"].lower()!=bot.host.lower():
+			if text["User"].lower()!=host.lower():
 				return "I will not say that, "+text["User"]+'.'
 	return combine(args)
