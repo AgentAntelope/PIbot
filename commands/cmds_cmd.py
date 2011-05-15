@@ -9,12 +9,14 @@ level=user.basic
 def format_status(cmd):
 	string=cmd.name
 	if cmd.disabled:
-		string+=": disabled."
+		string+=": disabled"
+	else:
+		string+=": enabled"
 	return string+'\n'
 
 def func(bot,text,args):
 	if len(args)==0:
-		string=""
+		string="PIbot commands:\n"
 		for c in bot.commands:
 			string+=format_status(c)
 		return string[:-1]
@@ -28,4 +30,4 @@ def func(bot,text,args):
 		else:
 			return '"'+args[0]+'" is not a PIbot command.'
 	else:
-		return "Proper usage: "+CK+name+' '+parameters+' - '+description
+		return "Proper usage: "+CK+name+' '+parameters

@@ -1,4 +1,5 @@
 import time
+from pibot_constants import *
 
 name="greeting"
 description="Greets users who arrive in chat."
@@ -8,25 +9,26 @@ oldfag=[]
 newfag=[]
 
 #initialize oldfag and newfag
-file=open("/data/oldgreet.txt","r")
-string=file.read()
-oldfag=string.split('\n')
-file.close()
-file=open("/data/newgreet.txt","r")
-string=file.read()
-newfag=string.split('\n')
-file.close()
-del file
-del string
+def init(bot):
+	file=open(workingdir+"data/oldgreet.txt","r")
+	string=file.read()
+	oldfag=string.split('\n')
+	file.close()
+	file=open(workingdir+"data/newgreet.txt","r")
+	string=file.read()
+	newfag=string.split('\n')
+	file.close()
+	del file
+	del string
 
-file=open("../data/oldgreet.txt","r")
-string=file.read()
-oldfag=string.split('\n')
-file.close()
-file.open("../data/newgreet.txt","r")
-string=file.read()
-newfag=string.split('\n')
-file.close()
+	file=open(workingdir+"data/oldgreet.txt","r")
+	string=file.read()
+	oldfag=string.split('\n')
+	file.close()
+	file=open(workingdir+"data/newgreet.txt","r")
+	string=file.read()
+	newfag=string.split('\n')
+	file.close()
 
 def format_greet(text,username):
 	text=text.replace("<user>",username).replace("<USER>",username.upper())
@@ -44,7 +46,7 @@ def format_greet(text,username):
 			text.replace("<time>","night")
 	return text
 
-def func(bot,text):
+def infunc(bot,text):
 	if text["Type"]=="Announcement":
 		#check if this is the string
 		if text["Msg"]=="has joined chat":
@@ -55,3 +57,6 @@ def func(bot,text):
 			return 'Error: Unexpected announcement "'+text["Msg"]+'" received.'
 	else:
 		return ""
+
+def outfunc(ostream):
+	return None

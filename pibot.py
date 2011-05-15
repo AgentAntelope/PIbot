@@ -1,21 +1,41 @@
-from pibot_classes import bot
+import sys
+import time
+import os
+from pibot_classes import bot,command,mode,service
+from pibot_constants import *
+
+def loadmodules(bot,cmddir,modedir,servdir):
+	#load commands
+	listing=os.listdir(cmddir)
+	for f in listing:
+		path=os.path.splitext(f)
+		if path[1]==".py":
+			bot.addcmd(command(os.path.basename(path[0]),bot))
+	#load modes
+	listing=os.listdir(modedir)
+	for f in listing:
+		path=os.path.splitext(f)
+		if path[1]==".py":
+			bot.addmode(mode(os.path.basename(path[0]),bot))
+	#load services
+	listing=os.listdir(servdir)
+	for f in listing:
+		path=os.path.splitext(f)
+		if path[1]==".py":
+			bot.addservice(service(os.path.basename(path[0]),bot))
 
 def main():
-	file=open("..\password.txt","r")
-	pibot=bot("PIbot",password.read(),"2.0.0","")
-	#commands
-	pibot.addcmd(command("/commands/cmds_cmd.py"))
-	pibot.addcmd(command("/commands/modes_cmd.py"))
-	pibot.addcmd(command("/commands/services_cmd.py"))
-	pibot.addcmd(command("/commands/say_cmd.py"))
-	#modes
-	pibot.addmode(mode("/modes/quiet_mode.py"))
-	#services
-	pibot.addservice(service("/services/greet_service.py"))
-	pibot.addservice(service("/services/log_service.py"))
+	sys.path.append(workingdir+"commands/")
+	sys.path.append(workingdir+"modes/")
+	sys.path.append(workingdir+"services/")
+	password=open("/home/pimaster/password.txt","r")
+	pibot=bot("PIbot",password.read().replace('\n',''),"2.0.0","")
+	loadmodules(pibot,workingdir+"commands/",workingdir+"modes/",workingdir+"services/")
 	#run the bot
-	while not pibot.logout:
+	while not pibot.dologout:
 		pibot.run()
+		time.sleep(delay)
+	pibot.logout()
 
 if __name__=="__main__":
 	main()

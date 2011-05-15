@@ -6,19 +6,21 @@ description="Gives a list of all modes and their status."
 version="1.0.0"
 level=user.basic
 
-def format_status(m:
+def format_status(m):
 	string=m.name+':'
 	if m.disabled:
 		string+=" disabled and"
-	if m.status:
-		string+=" on."
 	else:
-		string+=" off."
+		string+=" enabled and"
+	if m.state:
+		string+=" on"
+	else:
+		string+=" off"
 	return string+'\n'
 
 def func(bot,text,args):
 	if len(args)==0:
-		string=""
+		string="PIbot modes:\n"
 		for m in bot.modes:
 			string+=format_status(m)
 		return string[:-1]
