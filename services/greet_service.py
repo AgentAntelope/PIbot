@@ -21,9 +21,10 @@ def init(bot):
 	file=open(workingdir+"data/greetings.txt","r")
 	string=file.read()
 	file.close()
-	greetings=string.split('\n')
-	random.srand()
-	bot.chat.send(choose(greetings))
+	greetings=string.replace('\r','').split('\n')
+	random.seed()
+	out=random.choice(greetings)
+	bot.chat.send(out)
 
 def format_greet(text,username):
 	text=text.replace("<user>",username).replace("<USER>",username.upper())
@@ -46,9 +47,9 @@ def infunc(bot,text):
 	if text["Type"]=="Announcement":
 		#check if this is the string
 		if text["Msg"]=="has joined the channel":
-			return format_greet(choose(oldfag),text["User"])
+			return format_greet(random.choice(oldfag),text["User"])
 		elif text["Msg"]=="just joined the site":
-			return format_greet(choose(newfag),text["User"])
+			return format_greet(random.choice(newfag),text["User"])
 		elif text["Msg"]=="has left the channel":
 			return ""
 		else:
