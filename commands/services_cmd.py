@@ -3,7 +3,7 @@ from pibot_constants import *
 name="services"
 parameters="[service]"
 description="Gives a list of all services and their status."
-version="1.0.0"
+version="1.0.0.0"
 level=user.basic
 
 def format_status(cmd):

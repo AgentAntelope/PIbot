@@ -4,7 +4,7 @@ name="say"
 parameters="<text>"
 description="Make PIbot say text"
 level=user.basic
-version="1.1.0"
+version="1.0.1.0"
 
 def combine(params):
 	string=""

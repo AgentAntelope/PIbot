@@ -4,7 +4,7 @@ name="version"
 parameters="[module]"
 description="Returns the version of module or of PIbot."
 level=user.basic
-version="1.0.1"
+version="1.0.0.1"
 
 def func(bot,text,args):
 	if len(args)==0:

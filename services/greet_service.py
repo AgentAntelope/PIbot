@@ -4,7 +4,7 @@ from pibot_constants import *
 
 name="greeting"
 description="Greets users who arrive in chat."
-version="1.1.0"
+version="1.0.0.2"
 
 oldfag=[]
 newfag=[]
@@ -17,9 +17,13 @@ def init(bot):
 	file.close()
 	file=open(workingdir+"data/newgreet.txt","r")
 	newfag=file.read().split('\n')
-	del file
-	del string
+	file.close()
+	file=open(workingdir+"data/greetings.txt","r")
+	string=file.read()
+	file.close()
+	greetings=string.split('\n')
 	random.srand()
+	bot.chat.send(choose(greetings))
 
 def format_greet(text,username):
 	text=text.replace("<user>",username).replace("<USER>",username.upper())
@@ -42,9 +46,9 @@ def infunc(bot,text):
 	if text["Type"]=="Announcement":
 		#check if this is the string
 		if text["Msg"]=="has joined the channel":
-			return format_greet(oldfag[random.randrange(0,len(oldfag))],text["User"])
+			return format_greet(choose(oldfag),text["User"])
 		elif text["Msg"]=="just joined the site":
-			return format_greet(newfag[random.randrange(0,len(newfag))],text["User"])
+			return format_greet(choose(newfag),text["User"])
 		elif text["Msg"]=="has left the channel":
 			return ""
 		else:

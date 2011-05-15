@@ -3,7 +3,7 @@ from pibot_constants import *
 
 name="log"
 description="Records all conversation that goes on in chat."
-version="1.1.0"
+version="1.0.1.0"
 
 #init logging
 def init(bot):

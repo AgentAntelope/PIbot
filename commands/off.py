@@ -4,7 +4,7 @@ name="off"
 parameters="<mode>"
 description="Turn off a PIbot mode."
 level=user.basic
-version="1.0.0"
+version="1.0.0.0"
 
 def func(bot,text,args):
 	if len(args)==0 or len(args)>1:

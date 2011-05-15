@@ -3,7 +3,7 @@ from pibot_constants import *
 name="commands"
 parameters="[command]"
 description="Gives a list of all commands and their status."
-version="1.0.0"
+version="1.0.0.0"
 level=user.basic
 
 def format_status(cmd):

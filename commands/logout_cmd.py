@@ -3,7 +3,7 @@ from pibot_constants import *
 name="logout"
 parameters=""
 description="Make PIbot log out."
-version="1.1.0"
+version="1.0.1.0"
 level=user.admin
 
 def func(bot,text,args):

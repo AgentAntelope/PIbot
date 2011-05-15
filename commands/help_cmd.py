@@ -4,7 +4,7 @@ name="help"
 parameters="[module]"
 description="Display the help information."
 level=user.basic
-version="1.1.0"
+version="1.0.1.0"
 
 def init(bot):
 	#dynamically create the help information
