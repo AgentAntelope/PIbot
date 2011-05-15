@@ -1,7 +1,8 @@
 import sys
+import os
+from pibot_constants import *
 sys.path.append("/home/pimaster/www/pibot/")
 import u413lib
-from pibot_constants import *
 
 class module:
 	#default values
@@ -27,7 +28,8 @@ class command(module):
 	parameters=""
 	level=user.basic
 	modtype="command"
-	def __init__(self,filename,bot):
+	initexist=False
+	def __init__(self,filename):
 		mod=__import__(filename)
 		self.name=mod.name
 		self.parameters=mod.parameters
@@ -36,8 +38,8 @@ class command(module):
 		self.version=mod.version
 		self.func=mod.func
 		try:
-			init=getattr(mod,"init")
-			init(bot)
+			self.init=getattr(mod,"init")
+			self.initexist=True
 		except:
 			pass
 	def run(self,bot,text,args):
@@ -48,7 +50,8 @@ class command(module):
 class service(module):
 	#default values
 	modtype="service"
-	def __init__(self,filename,bot):
+	initexist=False
+	def __init__(self,filename):
 		mod=__import__(filename)
 		self.name=mod.name
 		self.description=mod.description
@@ -56,8 +59,8 @@ class service(module):
 		self.infunc=mod.infunc
 		self.outfunc=mod.outfunc
 		try:
-			init=getattr(mod,"init")
-			init(bot)
+			self.init=getattr(mod,"init")
+			self.initexist=True
 		except:
 			pass
 
@@ -66,6 +69,7 @@ class mode(module):
 	level=user.basic
 	state=False
 	modtype="mode"
+	initexist=False
 	def on(self):
 		if self.disabled:
 			return self.name+" mode is disabled."
@@ -88,7 +92,7 @@ class mode(module):
 			return self.name+" mode is now off."
 		self.state=True
 		return self.name+" mode is now on."
-	def __init__(self,filename,bot):
+	def __init__(self,filename):
 		mod=__import__(filename)
 		self.name=mod.name
 		self.description=mod.description
@@ -96,8 +100,8 @@ class mode(module):
 		self.func=mod.func
 		self.level=mod.level
 		try:
-			init=getattr(mod,"init")
-			init(bot)
+			self.init=getattr(mod,"init")
+			self.initexist=True
 		except:
 			pass
 	def run(self,bot,text):
@@ -152,6 +156,35 @@ class bot:
 		self.commands.append(botcmd)
 	def addservice(self,botservice):
 		self.services.append(botservice)
+	def initmodules(self):
+		for c in self.commands:
+			if c.initexist:
+				c.init(self)
+		for m in self.modes:
+			if m.initexist:
+				m.init(self)
+		for s in self.services:
+			if s.initexist:
+				s.init(self)
+	def loadmodules(self,cmddir,modedir,servdir):
+		#load commands
+		listing=os.listdir(cmddir)
+		for f in listing:
+			path=os.path.splitext(f)
+			if path[1]==".py":
+				self.addcmd(command(os.path.basename(path[0])))
+		#load modes
+		listing=os.listdir(modedir)
+		for f in listing:
+			path=os.path.splitext(f)
+			if path[1]==".py":
+				self.addmode(mode(os.path.basename(path[0])))
+		#load services
+		listing=os.listdir(servdir)
+		for f in listing:
+			path=os.path.splitext(f)
+			if path[1]==".py":
+				self.addservice(service(os.path.basename(path[0])))
 	def logout(self):
 		self.client.sendRawCommand("logout")
 	def userlvl(self,username):
