@@ -6,7 +6,7 @@ version="1.0.0.1"
 
 def infunc(bot,text):
 	args=text["Msg"].split(' ')
-	if len(args)>0:
+	if len(args)>0 and len(args[0])>1:
 		if args[0][0]=='!' and len(args[0])>1:
 			for c in bot.commands:
 				if CK+c.name.lower()==args[0].lower():

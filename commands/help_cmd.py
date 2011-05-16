@@ -35,7 +35,8 @@ def init(bot):
 
 def func(bot,text,args):
 	if len(args)==0:
-		return "Go to http://pi.dyndns-free.com/data/help.html for help with PIbot."
+		bot.chat.send("Go to http://jq.dyndns-free.com:3145/data/help.html for help with PIbot.")
+		return ""
 	if len(args)==1:
 		#check if it's a command
 		for c in bot.commands:

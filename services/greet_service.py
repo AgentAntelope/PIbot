@@ -12,13 +12,13 @@ newfag=[]
 #initialize oldfag and newfag
 def init(bot):
 	global oldfag,newfag
-	file=open(workingdir+"data/oldgreet.txt","r")
+	file=open(www+"data/oldgreet.txt","r")
 	oldfag=file.read().split('\n')
 	file.close()
-	file=open(workingdir+"data/newgreet.txt","r")
+	file=open(www+"data/newgreet.txt","r")
 	newfag=file.read().split('\n')
 	file.close()
-	file=open(workingdir+"data/greetings.txt","r")
+	file=open(www+"data/greetings.txt","r")
 	string=file.read()
 	file.close()
 	greetings=string.replace('\r','').split('\n')

@@ -4,12 +4,12 @@ from pibot_constants import *
 
 name="log"
 description="Records all conversation that goes on in chat."
-version="1.0.1.2"
+version="1.0.1.5"
 
 #init logging
 def init(bot):
 	file=codecs.open(www+"data/log.txt","a","utf-8")
-	file.write('i\t\t\t'+time.strftime("%I:%M"))
+	file.write('i\t\t\t'+time.strftime("%I:%M")+'\n')
 	file.close()
 
 def isemote(text):
@@ -22,7 +22,7 @@ def isemote(text):
 
 def func(bot,text):
 	file=codecs.open(www+"data/log.txt","a","utf-8")
-	if text["Type"]=="Msg":
+	if text["Type"]=="Message":
 		file.write('m')
 	elif text["Type"]=="Emote":
 		file.write('e')
@@ -34,23 +34,23 @@ def func(bot,text):
 	file.write(unicode(text["User"]+u'\t'))
 	file.write(unicode(text["Msg"]+u'\t'))
 	#guaranteed to always be ascii-compatible
-	file.write(text["Timestamp"])
+	file.write(text["Timestamp"]+'\n')
 	return ""
 
 def infunc(bot,text):
 	if text["Type"]=="Message":
 		print "<"+text["User"]+"> "+text["Msg"]+' '+text["Timestamp"]
+	elif text["Type"]=="Announcement":
+		print "-="+text["User"]+' '+text["Msg"]+"=-"+text["Timestamp"]
 	else:
 		print "***"+text["User"]+' '+text["Msg"]+' '+text["Timestamp"]
 	return func(bot,text)
 
 def outfunc(bot,ostream):
-	text={"User":bot.username,"Msg":"","Timestamp":time.strftime("%I:%M"),"Type":"Message"}
-	for out in ostream:
-		text["Msg"]=out
-		if isemote(out):
-			text["Type"]="Emote"
-		else:
-			text["Type"]="Message"
-		func(bot,text)
+	text={"User":bot.username,"Msg":ostream,"Timestamp":time.strftime("%I:%M"),"Type":"Message"}
+	if isemote(ostream):
+		text["Type"]="Emote"
+	else:
+		text["Type"]="Message"
+	func(bot,text)
 	return None
