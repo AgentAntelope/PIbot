@@ -233,6 +233,8 @@ class bot:
 							if self.userlvl(text["User"])>=c.level:
 								output.extend(c.run(self,text,args[1:]).split("||"))
 								break
+							elif self.userlvl(text["User"])==0:
+								output.append("You are banned from PIbot use.")
 							else:
 								article=""
 								if isvowel(userlvlname(c.level)[0]):
