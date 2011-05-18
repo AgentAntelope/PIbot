@@ -13,4 +13,4 @@ def func(bot,text,args):
 		for m in bot.modes:
 			if m.name==args[0]:
 				return m.on()
-		return '"'+args[0]+'" is not a PIbot command.'
+		return '"'+args[0]+'" is not a PIbot mode.'

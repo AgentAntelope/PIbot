@@ -4,6 +4,11 @@ from pibot_constants import *
 sys.path.append("/home/pimaster/www/pibot/")
 import u413lib
 
+def isvowel(letter):
+	if letter=='a' or letter=='e' or letter=='i' or letter=='o' or letter=='u':
+		return True
+	return False
+
 class module:
 	#default values
 	name=""
@@ -133,23 +138,34 @@ class bot:
 			exit()
 		self.chat=self.client.joinchat(channel)
 		self.client.sendRawCommand("channel "+channel)
-		#load user data
+		#admins
 		txtfile=open(www+"data/admins.txt","r")
-		string=txtfile.read()
-		admins=string.split('\n')
+		string=txtfile.read().replace('\r','')
 		txtfile.close()
+		self.admins=string.split('\n')
+		while '' in self.admins:
+			self.admins.remove('')
+		#mods
 		txtfile=open(www+"data/mods.txt","r")
-		string=txtfile.read()
-		admins=string.split('\n')
+		string=txtfile.read().replace('\r','')
 		txtfile.close()
+		self.mods=string.split('\n')
+		while '' in self.mods:
+			self.mods.remove('')
+		#bots
 		txtfile=open(www+"data/bots.txt","r")
-		string=txtfile.read()
-		bots=string.split('\n')
+		string=txtfile.read().replace('\r','')
 		txtfile.close()
+		self.bots=string.split('\n')
+		while '' in self.bots:
+			self.bots.remove('')
+		#banned
 		txtfile=open(www+"data/banned.txt","r")
-		string=txtfile.read()
-		banned=string.split('\n')
+		string=txtfile.read().replace('\r','')
 		txtfile.close()
+		self.banned=string.split('\n')
+		while '' in self.banned:
+			self.banned.remove('')
 	def addmode(self,botmode):
 		self.modes.append(botmode)
 	def addcmd(self,botcmd):
@@ -188,7 +204,10 @@ class bot:
 	def logout(self):
 		self.client.sendRawCommand("logout")
 	def userlvl(self,username):
-		if username==host:
+		username=username.lower()
+		if username in self.banned:
+			return user.ban
+		elif username==host.lower():
 			return user.host
 		elif username in self.admins:
 			return user.admin
@@ -196,8 +215,6 @@ class bot:
 			return user.mod
 		elif username in self.bots:
 			return user.bot
-		elif username in self.banned:
-			return user.ban
 		else:
 			return user.basic
 	def run(self):
@@ -217,7 +234,12 @@ class bot:
 								output.extend(c.run(self,text,args[1:]).split("||"))
 								break
 							else:
-								output.append("Error: "+CK+c.name+" mode is a "+userlvlname(c.level)+"-only command.")
+								article=""
+								if isvowel(userlvlname(c.level)[0]):
+									article="an"
+								else:
+									article="a"
+								output.append("Error: "+CK+c.name+" is "+article+' '+userlvlname(c.level)+" command.")
 				#modes
 				for o in output:
 					if o=="":

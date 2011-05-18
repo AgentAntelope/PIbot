@@ -13,7 +13,8 @@ def func(bot,text,args):
 	if args[0].lower() in bot.mods:
 		bot.mods.remove(args[0].lower())
 		mods=codecs.open(www+"data/mods.txt","w","utf-8")
-		mods.writelines(bot.mods)
+		for m in bot.mods:
+			mods.write(m+'\n')
 		mods.close()
 		return '"'+args[0]+'" has been removed as a PIbot mod.'
 	else:

@@ -13,7 +13,8 @@ def func(bot,text,args):
 	if args[0].lower() in bot.admins:
 		bot.admins.remove(args[0].lower())
 		admins=codecs.open(www+"data/admins.txt","w","utf-8")
-		admins.writelines(bot.admins)
+		for a in bot.admins:
+			admins.write(a+'\n')
 		admins.close()
 		return '"'+args[0]+'" has been removed as a PIbot admin.'
 	else:

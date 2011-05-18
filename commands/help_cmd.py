@@ -20,10 +20,10 @@ def init(bot):
 		<p>All PIbot commands begin with """+CK+"""<p><br/>
 		<h2>Commands</h2>\n"""
 	for c in bot.commands:
-		helphtml+="<p> &gt; "+CK+c.name+' v'+c.version+' '+c.parameters.replace('<',"&lt;").replace('>',"&gt;")+" - "+c.description+'" '+userlvlname(c.level)+"-only</p>\n\t\t"
+		helphtml+="<p> &gt; "+CK+c.name+' v'+c.version+' '+c.parameters.replace('<',"&lt;").replace('>',"&gt;")+" - "+c.description+" ("+userlvlname(c.level)+")</p>\n\t\t"
 	helphtml+="<h2>Modes</h2>\n\t\t"
 	for m in bot.modes:
-		helphtml+="<p> &gt; "+m.name+" mode v"+m.version+" - "+c.description+' '+userlvlname(c.level)+"-only</p>\n\t\t"
+		helphtml+="<p> &gt; "+m.name+" mode v"+m.version+" - "+c.description+" ("+userlvlname(c.level)+")</p>\n\t\t"
 	helphtml+="<h2>Services</h2>\n\t\t"
 	for s in bot.services:
 		helphtml+="<p> &gt; "+s.name+" service v"+s.version+" - "+s.description+"</p>\n\t\t"
