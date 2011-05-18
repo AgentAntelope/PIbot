@@ -11,7 +11,7 @@ def main():
 	sys.path.append(workingdir+"modes/")
 	sys.path.append(workingdir+"services/")
 	password=open("/home/pimaster/password.txt","r")
-	pibot=bot("PIbot",password.read().replace('\n',''),"2.0.1.3","")
+	pibot=bot("PIbot",password.read().replace('\n',''),"2.1.1.3","")
 	pibot.loadmodules(workingdir+"commands/",workingdir+"modes/",workingdir+"services/")
 	pibot.initmodules()
 	#run the bot

@@ -118,6 +118,7 @@ class bot:
 	password=""
 	version=""
 	description=""
+	channels=[]#list of (chat,chatname)
 	#modules
 	modes=[]
 	services=[]
