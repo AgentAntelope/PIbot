@@ -4,7 +4,7 @@ name="help"
 parameters="[module]"
 description="Display the help information."
 level=user.basic
-version="1.0.1.3"
+version="1.0.1.6"
 
 def init(bot):
 	#dynamically create the help information
@@ -41,11 +41,11 @@ def func(bot,text,args):
 		#check if it's a command
 		for c in bot.commands:
 			if c.name==args[0]:
-				return CK+c.name+' '+c.parameters+" - "+c.description
+				return CK+c.name+' '+c.parameters+" - "+c.description+" ("+userlvlname(c.level)+')'
 		#check if it's a mode
 		for m in bot.modes:
 			if m.name==args[0]:
-				return m.name+" mode - "+m.description
+				return m.name+" mode - "+m.description+" ("+userlvlname(m.level)+')'
 		#check if it's a service
 		for s in bot.services:
 			if s.name==args[0]:

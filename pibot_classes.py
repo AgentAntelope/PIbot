@@ -135,7 +135,6 @@ class bot:
 		self.description=description
 		self.client=u413lib.createclient()
 		if not self.client.login(username,password):
-			print username,password
 			exit()
 		self.chat=self.client.joinchat(channel)
 		self.client.sendRawCommand("channel "+channel)
