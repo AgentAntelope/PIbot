@@ -4,7 +4,7 @@ from pibot_constants import *
 
 name="fiskie"
 description="Makes PIbot say random vulgar phrases."
-version="1.0.1.1"
+version="1.0.1.2"
 level=user.basic
 
 phrases=[]
@@ -20,8 +20,10 @@ def init(bot):
 def func(bot,text):
 	global phrases
 	words=text.split(' ')
-	words.insert(random.randrange(0,len(words)),random.choice(phrases))
-	string=""
-	for w in words:
-		string+=w+' '
-	return string[:-1]
+	if len(words)>1:
+		words.insert(random.randrange(1,len(words)),random.choice(phrases))
+		string=""
+		for w in words:
+			string+=w+' '
+		return string[:-1]
+	return text

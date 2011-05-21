@@ -19,4 +19,4 @@ def func(bot,text,args):
 		if args[0].lower()!="/me":
 			if text["User"].lower()!=host.lower():
 				return "I will not say that, "+text["User"]+'.'
-	return combine(args)
+	return combine(args).replace('\\n','\n').split('||')

@@ -29,11 +29,8 @@ def func(bot,text,args):
 				return '"'+m.name+'" is a '+userlvlname(m.level)+"-only mode."
 	for s in bot.services:
 		if s.name==args[0].lower():
-			if bot.userlvl(text["User"])>s.level:
-				if s.disabled:
-					return '"'+s.name+'" service is already disabled.'
-				s.disabled=True
-				return '"'+s.name+'" service has been disabled.'
-			else:
-				return '"'+s.name+'" is a '+userlvlname(s.level)+"-only service."
+			if s.disabled:
+				return '"'+s.name+'" service is already disabled.'
+			s.disabled=True
+			return '"'+s.name+'" service has been disabled.'
 	return '"'+args[0]+'" is not a PIbot module.'

@@ -48,7 +48,7 @@ class command(module):
 		except:
 			pass
 	def run(self,bot,text,args):
-		if self.disabled:
+		if self.disabled and not bot.userlvl(text["User"])>self.level:
 			return CK+self.name+' '+self.modtype+" is disabled."
 		return self.func(bot,text,args)
 
@@ -224,14 +224,26 @@ class bot:
 				output=[]
 				#services
 				for s in self.services:
-					output.extend(s.infunc(self,text).split("||"))
+					ss=s.infunc(self,text)
+					if type(ss)==type([]):
+						output.extend(ss)
+					elif type(ss)==type("") or type(s)==type(u""):
+						output.append(ss)
+					else:
+						raise TypeError(s.name+" returned an unsupported value type ("+str(type(ss))+')')
 				#commands
 				if text["Type"]=="Message":
 					args=text["Msg"].split(' ')
 					for c in self.commands:
 						if CK+c.name==args[0]:
 							if self.userlvl(text["User"])>=c.level:
-								output.extend(c.run(self,text,args[1:]).split("||"))
+								s=c.run(self,text,args[1:])
+								if type(s)==type([]):
+									output.extend(s)
+								elif type(s)==type("") or type(s)==type(u""):
+									output.append(s)
+								else:
+									raise TypeError(c.name+" returned an unsupported value type ("+str(type(s))+')')
 								break
 							elif self.userlvl(text["User"])==0:
 								output.append("You are banned from PIbot use.")
@@ -243,10 +255,9 @@ class bot:
 									article="a"
 								output.append("Error: "+CK+c.name+" is "+article+' '+userlvlname(c.level)+" command.")
 				#modes
-				for o in output:
-					if o=="":
+				for out in output:
+					if out=="":
 						continue
-					out=o
 					for m in self.modes:
 						if not m.disabled and m.state:
 							out=m.run(self,out)

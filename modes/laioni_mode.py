@@ -30,6 +30,8 @@ def mixletter(text):
 
 def badtype(text):
 	letters=list(text)
+	if len(letters)==0:
+		return "Error: 0-length string passed to Laioni mode."
 	while True:
 		place=random.randrange(0,len(letters))
 		if letters[place] in close:

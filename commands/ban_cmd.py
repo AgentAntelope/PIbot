@@ -4,14 +4,14 @@ from pibot_constants import *
 name="ban"
 parameters="<user>"
 description="Ban a user from all PIbot use."
-version="1.0.1.2"
+version="1.0.1.3"
 level=user.mod
 
 def func(bot,text,args):
 	if len(args)!=1:
 		return "Proper usage: "+CK+name+' '+parameters
 	if bot.userlvl(text["User"])>bot.userlvl(args[0]):
-		if args[0] not in bot.banned:
+		if args[0].lower() not in bot.banned:
 			bot.banned.append(args[0].lower())
 			banned=codecs.open(www+"data/banned.txt","a","utf-8")
 			banned.write(args[0].lower()+'\n')
@@ -19,3 +19,5 @@ def func(bot,text,args):
 			return '"'+args[0]+'" has been banned from PIbot use.'
 		else:
 			return '"'+args[0]+'" is already banned.'
+	else:
+		return "Error: "+args[0]+" has a higher access level than "+text["User"]+'.'
