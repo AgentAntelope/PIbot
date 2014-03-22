@@ -9,13 +9,12 @@ Greetings, comrad.
 Greetings.
 Salutations, <user>.
 OHAITHAR!
-¡Hola!
-¿Comó está, <user>?
+ï¿½Hola!
+ï¿½Comï¿½ estï¿½, <user>?
 /me greets <user>
 /me shakes virtual hands with <user>
 YOU!!
 Sup <user>.
-Sup nigga.
 Yo
 Ohai <user>
 Hello
